@@ -31,12 +31,14 @@ int main()
 // > klee get_sign.bc
 //
 // [your answer here]
+// A .bc file is generated
 //
 // B) Inspecting the output
 //
 // > ls klee-last/
 //
 // [your answer here]
+// assembly.ll  info  messages.txt  run.istats  run.stats  test000001.ktest  test000002.ktest  test000003.ktest  warnings.txt
 //
 // C) Inspecting the generated test cases
 //
@@ -45,17 +47,21 @@ int main()
 // What path in the code does this test represent?
 //
 // [your answer here]
+// First path: "if (x == 0)"
 //
 // > ktest-tool klee-last/test000002.ktest
 //
 // What path in the code does this test represent?
 //
 // [your answer here]
+// Last path: "else"
+//
 // > ktest-tool klee-last/test000003.ktest
 //
 // What path in the code does this test represent?
 //
 // [your answer here]
+// Second path: "if (x < 0)"
 //
 // D) Replaying a test case
 //
@@ -109,6 +115,7 @@ int main()
 // Did the result correspond to the expected path for the test?
 //
 // [your answer here]
+// Yes. 0 was returned and since 0 was the input this is expected.
 //
 // > KTEST_FILE=klee-last/test000002.ktest ./a.out
 //
@@ -117,6 +124,7 @@ int main()
 // Did the result correspond to the expected path for the test?
 //
 // [your answer here]
+// Yes. 1 was returned which it should in the else block.
 //
 // > KTEST_FILE=klee-last/test000003.ktest ./a.out
 //
@@ -125,10 +133,12 @@ int main()
 // Did the result correspond to the expected path for the test?
 //
 // [your answer here]
+// No. 255 was returned. 
 //
 // Why not? Confer to shell error codes:
 //
 // [your answer here]
+// 255 means exit status out of range. -1 is out of range.
 //
 // D) Debugging
 //
@@ -153,6 +163,7 @@ int main()
 // What value do you get, and why?
 //
 // [your answer here]
+// "$1 = 0". Because for the first test x is 0.
 //
 // Step the code
 // > (gdb) next
@@ -160,6 +171,7 @@ int main()
 // What path did it take, and why?
 //
 // [your answer here]
+// It took the first path. Because x is 0.
 //
 // Now we can try with another test:
 //
@@ -173,6 +185,7 @@ int main()
 // Which path did it take, and why?
 //
 // [your answer here]
+// The third path. Because x is 255.
 //
 // And finally:
 //
@@ -181,6 +194,7 @@ int main()
 // Which path did it take, and why?
 //
 // [your answer here]
+// The second path. Because x is -2147483648.
 //
 // E) Under the hood.
 //
@@ -190,6 +204,9 @@ int main()
 //
 // [your answer here]
 // (hint, mark memory region as symbolic)
+// We tell klee to make the integer "a" to be a symbolic value. That is
+// we don't treat it as a hard value but let klee determine the paths in the program
+// and then find suitable values such that the paths are choosen afterwards.
 //
 // Explain in your own words how
 // `klee_make_symbolic(&a, sizeof(a), "a");`
@@ -198,3 +215,4 @@ int main()
 // [your answer here]
 // (hint, KTEST_FILE points to a concrete assignment
 // of the memory region)
+// When replayed the symbolic values will be replaced by the values in the test cases.
