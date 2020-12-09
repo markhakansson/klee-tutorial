@@ -109,6 +109,7 @@ mod ll {
 // What was the generated hash.
 //
 // [your answer here]
+// 8b84d4fb1ea71100
 //
 // B) Inspecting the test cases.
 //
@@ -116,6 +117,7 @@ mod ll {
 // (Hint, it is just a matter of paths.)
 //
 // [your answer here]
+// ktest-tool target/debug/examples/klee-last/test000001.ktest
 //
 // C) Replaying your test cases.
 //
@@ -136,6 +138,7 @@ mod ll {
 // > ls *.o
 //
 // [your answer here]
+// get_sign-8b84d4fb1ea71100.o
 //
 // Now we need to link it with the `libkleeRuntest`.
 //
@@ -154,14 +157,17 @@ mod ll {
 // Now run the code in the debugger. What path was triggered.
 //
 // [your answer here]
+// The last path "else" which returns 1
 //
 // Change to test000002, what path does it trigger.
 //
 // [your answer here]
+// The first path "if x == 0" which returns 0
 //
 // And finally change to test000003, what path was triggered.
 //
 // [your answer here]
+// The second path "if (x < 0)" which returns -1
 //
 // D) Remarks and conclusions.
 //
