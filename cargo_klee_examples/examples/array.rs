@@ -38,6 +38,10 @@ fn main() {
 // (Hint, even if we don't use the result `b`, Rust do not optimize out the call, why?)
 //
 // [your answer here]
+// On debug the generated tests are 10 but on release there are only 2 generated tests.
+// Debug checks the index value from 0..8 and then 255. Whereas release only checks the values
+// 0..1. I think since b is not used it is optimized out and KLEE doesn't have to check that b
+// is overflown. Only that the function sum_first_elements is correct.
 //
 // B) Fix the code so that you don't get an error.
 // (It should still compute the sum of the n first elements
