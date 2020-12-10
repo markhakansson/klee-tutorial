@@ -100,6 +100,7 @@ fn main() {
 // What modules in `klee-sys` does this feature enable?
 //
 // [your answer here]
+// "lib_klee_analysis" and "ll"
 //
 // Have a look at the source code of `cargo klee`.
 // (The actual sub-command is in the folder `cargo-klee`.)
@@ -108,6 +109,9 @@ fn main() {
 // Which one will it pick, and why?
 //
 // [your answer here]
+// It searches the output directory for the files with the ".ll" extensions
+// and the same prefix as the program. Then chooses the latest modified file
+// as the correct ll file.
 //
 // Actually this is one of the "bad seeds" in the internal design.
 // Seems there is no "stable" way of controlling/retrieving the "metadata"
