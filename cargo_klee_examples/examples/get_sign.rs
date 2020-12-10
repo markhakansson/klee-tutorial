@@ -68,6 +68,7 @@ fn main() {
 // What path of the program does this path trigger?
 //
 // [your answer here]
+// The last path "else" and returns 1
 //
 // Just out of curiosity, you may test the other test cases as well...
 //
@@ -78,10 +79,16 @@ fn main() {
 // How does `klee-sys` and `cargo-klee` score on a 0..5 scale?
 //
 // [your answer here]
+// Maybe a 4? It is certainly fewer commands to run than using clang, klee
+// directly.  
 //
 // If below 5, what could be done to improve the UX/IX?
 //
 // [your answer here]
+// I think the option to move the options and flags (especially when there are
+// so many that needs to be set) when running the cmd to generate LLVM-IR and 
+// run KLEE, to a settings file or something might improve user experience a 
+// lot. Such that one only need to run "cargo klee --examples get_sign".
 //
 // C) Inner workings.
 //
