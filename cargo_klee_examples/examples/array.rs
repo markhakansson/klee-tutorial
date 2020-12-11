@@ -8,11 +8,11 @@
 use klee_sys::klee_make_symbolic;
 use panic_klee as _;
 
-fn sum_first_elements(arr: &[u8], index: usize) -> u8 {
-    let mut acc = 0;
+fn sum_first_elements(arr: &[u8], index: usize) -> u16 {
+    let mut acc: u16 = 0;
     for i in 0..index {
         if index < arr.len() {
-            acc += arr[i as usize];
+            acc += arr[i as usize] as u16;
          } else {
             break;
         }
@@ -83,6 +83,11 @@ fn main() {
 // Motivate your choice.
 //
 // [your answer here]
+// Let the accumulator variable be an u16 instead. Thus we can accumulate a value that
+// is 256 times larger than an u8. One would need an array of size larger than size
+// 256 to be able to overflow that variable.
+// This is more sensible than doing a wrapping add in my opinion as then you would get a value
+// than you might not expect in debug. For release mode it will wrap anyway.
 //
 // [Git commit "D"]
 //
