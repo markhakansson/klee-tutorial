@@ -75,6 +75,9 @@ fn main() {
 // Explain what caused the error.
 //
 // [your answer here]
+// In debug compilation: 
+// The first and second value in the array are both 248. When adding them
+// the accumulator value (u8) will overflow and cause a panic.
 //
 // E) Make a sensible fix to the code.
 // Motivate your choice.
