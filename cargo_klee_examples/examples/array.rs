@@ -13,7 +13,7 @@ fn sum_first_elements(arr: &[u8], index: usize) -> u8 {
     for i in 0..index {
         if index < arr.len() {
             acc += arr[i as usize];
-        } else {
+         } else {
             break;
         }
     }
@@ -22,7 +22,13 @@ fn sum_first_elements(arr: &[u8], index: usize) -> u8 {
 
 #[no_mangle]
 fn main() {
-    let arr = [0u8; 8];
+    let mut arr = [0u8; 8];  
+    for i in 0..arr.len() {
+        let mut var: u8 = 0;
+        klee_make_symbolic!(&mut var, "num");
+        arr[i] = var;
+    }
+
     let mut i: usize = 0;
     klee_make_symbolic!(&mut i, "i");
     let b = sum_first_elements(&arr, i);
