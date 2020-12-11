@@ -11,7 +11,11 @@ use panic_klee as _;
 fn sum_first_elements(arr: &[u8], index: usize) -> u8 {
     let mut acc = 0;
     for i in 0..index {
-        acc += arr[i as usize];
+        if index < arr.len() {
+            acc += arr[i as usize];
+        } else {
+            break;
+        }
     }
     acc
 }
@@ -40,8 +44,9 @@ fn main() {
 // [your answer here]
 // On debug the generated tests are 10 but on release there are only 2 generated tests.
 // Debug checks the index value from 0..8 and then 255. Whereas release only checks the values
-// 0..1. I think since b is not used it is optimized out and KLEE doesn't have to check that b
-// is overflown. Only that the function sum_first_elements is correct.
+// 0..1. I get the feeling that since KLEE checks indices 0..8 because that is the length of the
+// array. And perhaps the Rust compiler do some optimizations in release mode so that the array is
+// smaller i.e. 2 bytes instead of 8.
 //
 // B) Fix the code so that you don't get an error.
 // (It should still compute the sum of the n first elements
