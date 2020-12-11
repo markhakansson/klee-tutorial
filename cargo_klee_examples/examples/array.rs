@@ -96,10 +96,16 @@ fn main() {
 // memory safety.
 //
 // Explain in your own words what Microsoft would gain by using Rust.
-//
 // [your answer here]
+// It would most likely lead to less issues with memory bugs. And since the
+// Rust compiler is much more strict of what you can do, it would probably
+// lead to less developer headaches in the long-run. 
+//
 //
 // Explain in your own words what Microsoft would gain by using `cargo klee`
 // on their Rust code.
+// [your answer here]
+// If they want to utilize KLEE it would make it easier for them to integrate integrate
+// it into their worflows.
 //
 // And YES, Microsoft is rewriting core system functionality in Rust as we speak!
