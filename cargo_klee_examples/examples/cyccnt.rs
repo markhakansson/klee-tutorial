@@ -19,7 +19,8 @@ fn main() {
 
     let end = core.DWT.cyccnt.read();
 
-    let _time = end - start;
+    let _time = end.wrapping_sub(start);
+    //let _time = end - start;
 }
 
 // A) Running KLEE on embedded code:
@@ -167,6 +168,9 @@ fn main() {
 // What do you get, and why?
 //
 // [your answer here]
+// <optimized out> for start and end is not accessible in context.
+// Probably the compiler that did not feel the need to store the value since they are
+// not used.
 //
 // As you should have seen, this was not particularly informative, right?
 //
@@ -198,14 +202,18 @@ fn main() {
 // Value of `start`.
 //
 // [your answer here]
+// $1 = 2147483648
 //
 // Value of `end`
 //
 // [your answer here]
+// $2 = 0
 //
 // Why does these values cause an error debug/dev build but not in a release build?
 //
 // [your answer here]
+// It will become negative and then panic. In the release build _time is optimized out.
+// And the calculation will not be made.
 //
 // C) Fix the problem!
 //
@@ -218,6 +226,11 @@ fn main() {
 // Argue for your solution in your own words.
 //
 // [your answer here]
+// I think the absolute easiest way is just to add a wrapping_sub on the value.
+// Which is what I did.
+// The better solution would probably be to also count how many times it wraps around.
+// Then you can actually calculate how many cycles it took between the counts.
+//
 //
 // D) Learning outcomes and major takeaways.
 //
