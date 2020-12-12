@@ -250,6 +250,14 @@ fn main() {
 // How long time would lines 16/17 take to run to trigger the error?
 //
 // [your answer here]
+// - I guess it is easy to forget that hardware registers like cyccnt does
+// in fact wrap around. If you program logically without respect to the hardware
+// you might not think about it.
+// - To trigger the error the cyccnt will have to wrap around between the readings.
+// - It counts the cycles in a 32-bit register and will wrap around.
+// - (2^32)/(8*10^6) ~= 540 seconds. So assuming that the cycle counter is reset
+// before doing the first reading it would need to take approx 9 minutes between the readings
+// for the error to be triggered. Which is a very long time.
 //
 // Of course this is a contrived example, and may not occur in practice.
 // But, it represents a class of problems/errors/bugs that is
