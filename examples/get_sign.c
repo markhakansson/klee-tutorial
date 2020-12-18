@@ -31,6 +31,7 @@ int main()
 // > klee get_sign.bc
 //
 // [your answer here]
+// KLEE: Using Z3 solver backend
 // KLEE: done: total instructions = 31
 // KLEE: done: completed paths = 3
 // KLEE: done: generated tests = 3
