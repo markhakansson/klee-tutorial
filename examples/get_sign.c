@@ -31,7 +31,9 @@ int main()
 // > klee get_sign.bc
 //
 // [your answer here]
-// A .bc file is generated
+// KLEE: done: total instructions = 31
+// KLEE: done: completed paths = 3
+// KLEE: done: generated tests = 3
 //
 // B) Inspecting the output
 //
