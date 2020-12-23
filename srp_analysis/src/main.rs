@@ -1,5 +1,7 @@
 mod common;
 use common::*;
+mod exam;
+use exam::*;
 
 fn main() {
     let t1 = Task {
@@ -68,7 +70,7 @@ fn main() {
     let tasks: Tasks = vec![t1, t2, t3];
 
     println!("tasks {:?}", &tasks);
-    // println!("tot_util {}", tot_util(&tasks));
+    println!("TLF {}", total_load_factor(&tasks));
 
     let (ip, tr) = pre_analysis(&tasks);
     println!("ip: {:?}", ip);
