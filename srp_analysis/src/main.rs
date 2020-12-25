@@ -69,10 +69,13 @@ fn main() {
     // builds a vector of tasks t1, t2, t3
     let tasks: Tasks = vec![t1, t2, t3];
 
-    println!("tasks {:?}", &tasks);
-    println!("TLF {}", total_load_factor(&tasks));
+    println!("tasks {:#?}", &tasks);
+    println!("total_load_factor: {}", total_load_factor(&tasks));
 
     let (ip, tr) = pre_analysis(&tasks);
     println!("ip: {:?}", ip);
     println!("tr: {:?}", tr);
+
+    println!("max_time: {:?}", max_time_hold_resource(&tasks[1].trace, &"R2"));
+    println!("block_time: {:?}", blocking_time(&tasks[2], &tasks, &ip, &tr));
 }
