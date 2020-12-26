@@ -84,4 +84,8 @@ fn main() {
         "block_time: {:?}",
         blocking_time(&tasks[2], &tasks, &ip, &tr)
     );
+    println!(
+        "response times: {:#?}",
+        calc_response_times(&tasks, &ip, &tr)
+    );
 }
