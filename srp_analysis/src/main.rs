@@ -76,6 +76,12 @@ fn main() {
     println!("ip: {:?}", ip);
     println!("tr: {:?}", tr);
 
-    println!("max_time: {:?}", max_time_hold_resource(&tasks[1].trace, &"R2"));
-    println!("block_time: {:?}", blocking_time(&tasks[2], &tasks, &ip, &tr));
+    println!(
+        "max_time: {:?}",
+        max_time_hold_resource(&tasks[1].trace, &"R2")
+    );
+    println!(
+        "block_time: {:?}",
+        blocking_time(&tasks[2], &tasks, &ip, &tr)
+    );
 }
