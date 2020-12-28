@@ -84,8 +84,17 @@ fn main() {
         "block_time: {:?}",
         blocking_time(&tasks[2], &tasks, &ip, &tr)
     );
+    println!("(Task, R(t), C(t), B(t), I(t))");
+    println!(
+        "response times (approx): {:#?}",
+        calc_response_times(&tasks, &ip, &tr, true)
+    );
     println!(
         "response times: {:#?}",
-        calc_response_times(&tasks, &ip, &tr)
+        calc_response_times(&tasks, &ip, &tr, false)
+    );
+    println!(
+        "rta: {:#?}",
+        preemption_rec(&tasks[1], &tasks, &ip, &tr, 0) 
     );
 }
