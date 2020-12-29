@@ -1,7 +1,9 @@
 mod common;
 use common::*;
-mod exam;
-use exam::*;
+mod analysis;
+use analysis::*;
+mod helpers;
+use helpers::*;
 
 fn main() {
     let t1 = Task {
@@ -76,14 +78,6 @@ fn main() {
     println!("ip: {:?}", ip);
     println!("tr: {:?}", tr);
 
-    println!(
-        "max_time: {:?}",
-        max_time_hold_resource(&tasks[1].trace, &"R2")
-    );
-    println!(
-        "block_time: {:?}",
-        blocking_time(&tasks[2], &tasks, &ip, &tr)
-    );
     println!("(Task, R(t), C(t), B(t), I(t))");
     println!(
         "response times (approx): {:#?}",
@@ -92,9 +86,5 @@ fn main() {
     println!(
         "response times: {:#?}",
         calc_response_times(&tasks, &ip, &tr, false)
-    );
-    println!(
-        "rta: {:#?}",
-        preemption_rec(&tasks[1], &tasks, &ip, &tr, 0) 
     );
 }
