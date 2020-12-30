@@ -1,8 +1,9 @@
 /* Home exam functions etc.*/
 use crate::common::*;
 use crate::helpers::*;
+use crate::blocking::*;
 
-/* 3. Preemption */
+/* 3. Preemption and response times */
 // Calculate the response time of a task. R = B + C + I.
 pub fn response_time(
     task: &Task,
@@ -37,11 +38,15 @@ pub fn calc_response_times(
     res
 }
 
+// Calculates the preemption (I(t)) of a task with or without approximation.
 fn preemption(task: &Task, tasks: &[Task], ip: &IdPrio, tr: &TaskResources, approx: bool) -> u32 {
     if approx {
         preemption_approx(task, tasks, ip)
     } else {
-        preemption_rec(task, tasks, ip, tr, 0)
+        let base = wcet(task) + blocking_time(task, tasks, ip, tr); 
+        // Need to subtract the base otherwise the response time calculation
+        // will contain duplicates!
+        preemption_rec(task, tasks, ip, tr, base) - base
     }
 }
 
@@ -76,35 +81,32 @@ fn preemption_rec(
     tr: &TaskResources,
     prev_rt: u32,
 ) -> u32 {
-    let mut current_rt: u32;
+    let mut current_rt = wcet(task) + blocking_time(task, tasks, ip, tr); 
     let mut task_prio = 0;
 
     if let Some(prio) = ip.get(&task.id) {
         task_prio = *prio
     }
 
-    current_rt = wcet(task) + blocking_time(task, tasks, ip, tr);
-
-    if current_rt != prev_rt {
-        let rt_next = preemption_rec(task, tasks, ip, tr, current_rt) as f32;
-        let mut sum = 0;
-
-        for t in tasks {
-            if let Some(t_prio) = ip.get(&t.id) {
-                if t_prio > &task_prio {
-                    let a = t.inter_arrival as f32;
-                    let calc = wcet(t) * (rt_next / a).ceil() as u32;
-                    sum += calc;
-                }
+    // The summation part of eq. 7.22 in Hard Real-Time Computing Systems
+    for t in tasks {
+        if let Some(t_prio) = ip.get(&t.id) {
+            if t_prio > &task_prio {
+                let a = t.inter_arrival as f32;
+                let calc = wcet(t) * (prev_rt as f32 / a).ceil() as u32;
+                current_rt += calc;
             }
         }
-
-        current_rt = sum;
     }
-
+    
+    // Should return an Error instead
     if current_rt > task.deadline {
         panic!("Bp(t) > D(t)");
     }
-
-    current_rt
+     
+    if current_rt == prev_rt {
+        current_rt
+    } else {
+        preemption_rec(task, tasks, ip, tr, current_rt)
+    }
 }
