@@ -1,10 +1,10 @@
-mod common;
 mod analysis;
-mod helpers;
 mod blocking;
+mod common;
+mod helpers;
 
-use common::*;
 use analysis::*;
+use common::*;
 use helpers::*;
 
 fn main() {
@@ -71,7 +71,7 @@ fn main() {
     };
 
     // builds a vector of tasks t1, t2, t3
-    let tasks: Tasks = vec![t1, t2, t3];
+    let tasks = vec![t1, t2, t3];
 
     println!("tasks {:#?}", &tasks);
     println!("total_load_factor: {}", total_load_factor(&tasks));
@@ -83,10 +83,10 @@ fn main() {
     println!("(Task, R(t), C(t), B(t), I(t))");
     println!(
         "response times (approx): {:#?}",
-        calc_response_times(&tasks, &ip, &tr, true)
+        calc_response_times(&tasks, true).unwrap()
     );
     println!(
         "response times: {:#?}",
-        calc_response_times(&tasks, &ip, &tr, false)
+        calc_response_times(&tasks, false).unwrap()
     );
 }

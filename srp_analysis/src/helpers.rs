@@ -1,5 +1,4 @@
 use crate::common::*;
-use std::collections::HashSet;
 
 /* 1. Total load factor */
 // Calculate WCET

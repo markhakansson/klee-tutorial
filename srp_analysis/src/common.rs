@@ -23,7 +23,7 @@ pub struct Trace {
 // useful types
 
 // Our task set
-pub type Tasks = Vec<Task>;
+pub type Tasks = [Task];
 
 // A map from Task/Resource identifiers to priority
 pub type IdPrio = HashMap<String, u8>;
