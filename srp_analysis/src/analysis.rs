@@ -52,7 +52,7 @@ fn preemption(
     ip: &IdPrio,
     tr: &TaskResources,
     approx: bool,
-) -> Result<u32, String> {
+) -> Result<I, String> {
     if approx {
         Ok(preemption_approx(task, tasks, ip))
     } else {

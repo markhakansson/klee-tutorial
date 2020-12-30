@@ -1,10 +1,13 @@
 use crate::common::*;
 use std::collections::HashSet;
 
+// Custom types to make it easier to read
+type B = u32;
+
 /* 2. Blocking */
 // Blocking function. Calculates the largest amount of time a task (T1) may be blocked by
 // another task (T2) using a resource (R). P(T2) < P(T1) and P(R) >= P(T1).
-pub fn blocking_time(task: &Task, tasks: &[Task], ip: &IdPrio, tr: &TaskResources) -> u32 {
+pub fn blocking_time(task: &Task, tasks: &[Task], ip: &IdPrio, tr: &TaskResources) -> B {
     let mut max_block_time = 0;
     let mut task_prio = 0;
     let mut resources = &HashSet::new();
