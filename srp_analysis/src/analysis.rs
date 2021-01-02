@@ -2,13 +2,7 @@
 use crate::blocking::*;
 use crate::common::*;
 use crate::helpers::*;
-
-// Custom types to make it easier to read
-type R = u32;
-type B = u32;
-type C = u32;
-type I = u32;
-type ResponseTimes = Vec<(String, R, C, B, I)>;
+use crate::types::*;
 
 /* 3. Preemption and response times */
 // Calculate the response time of a task. R = B + C + I.
@@ -26,8 +20,9 @@ pub fn response_time(
 }
 
 // Calculates the response time of a all tasks. R = B + C + I.
+// And the load factor.
 // Returns a vector with the above values
-pub fn calc_response_times(
+pub fn run_analysis(
     tasks: &[Task],
     approx: bool,
 ) -> Result<ResponseTimes, String> {
@@ -39,7 +34,8 @@ pub fn calc_response_times(
         let b = blocking_time(task, tasks, &ip, &tr);
         let i = preemption(task, tasks, &ip, &tr, approx)?;
         let r = c + b + i;
-        res.push((task.id.to_string(), r, c, b, i));
+        let l = load_factor(&task);
+        res.push((task.id.to_string(), r, c, b, i, l));
     }
 
     Ok(res)

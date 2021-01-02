@@ -1,8 +1,6 @@
 use crate::common::*;
 use std::collections::HashSet;
-
-// Custom types to make it easier to read
-type B = u32;
+use crate::types::*;
 
 /* 2. Blocking */
 // Blocking function. Calculates the largest amount of time a task (T1) may be blocked by

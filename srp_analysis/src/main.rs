@@ -2,12 +2,38 @@ mod analysis;
 mod blocking;
 mod common;
 mod helpers;
+mod cli;
+mod templating;
+mod types;
 
-use analysis::*;
-use common::*;
-use helpers::*;
+//use analysis::*;
+use common::{Task, Trace};
+//use helpers::*;
 
 fn main() {
+    let tasks = tasks_to_analyse();
+    cli::cli(&tasks);    
+
+    // println!("tasks {:#?}", &tasks);
+    // println!("total_load_factor: {}", total_load_factor(&tasks));
+
+    // let (ip, tr) = pre_analysis(&tasks);
+    // println!("ip: {:?}", ip);
+    // println!("tr: {:?}", tr);
+
+    // println!("(Task, R(t), C(t), B(t), I(t))");
+    // println!(
+    //     "response times (approx): {:#?}",
+    //     calc_response_times(&tasks, true).unwrap()
+    // );
+    // println!(
+    //     "response times: {:#?}",
+    //     calc_response_times(&tasks, false).unwrap()
+    // );
+
+}
+
+fn tasks_to_analyse() -> Vec<Task> {
     let t1 = Task {
         id: "T1".to_string(),
         prio: 1,
@@ -73,20 +99,5 @@ fn main() {
     // builds a vector of tasks t1, t2, t3
     let tasks = vec![t1, t2, t3];
 
-    println!("tasks {:#?}", &tasks);
-    println!("total_load_factor: {}", total_load_factor(&tasks));
-
-    let (ip, tr) = pre_analysis(&tasks);
-    println!("ip: {:?}", ip);
-    println!("tr: {:?}", tr);
-
-    println!("(Task, R(t), C(t), B(t), I(t))");
-    println!(
-        "response times (approx): {:#?}",
-        calc_response_times(&tasks, true).unwrap()
-    );
-    println!(
-        "response times: {:#?}",
-        calc_response_times(&tasks, false).unwrap()
-    );
+    tasks
 }

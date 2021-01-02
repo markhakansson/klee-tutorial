@@ -1,9 +1,5 @@
 use crate::common::*;
-
-// Custom types to make it easier to read
-type C = u32;
-type L = f32;
-type LTot = f32;
+use crate::types::*;
 
 /* 1. Total load factor */
 // Calculate WCET
