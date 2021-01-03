@@ -6,11 +6,7 @@ use crate::types::*;
 
 /* 3. Preemption and response times */
 // Calculate the response time of a task. R = B + C + I.
-pub fn response_time(
-    task: &Task,
-    tasks: &[Task],
-    approx: bool,
-) -> Result<u32, String> {
+pub fn response_time(task: &Task, tasks: &[Task], approx: bool) -> Result<u32, String> {
     let (ip, tr) = pre_analysis(tasks);
     let blocking = blocking_time(task, tasks, &ip, &tr);
     let wcet = wcet(task);
@@ -22,10 +18,7 @@ pub fn response_time(
 // Calculates the response time of a all tasks. R = B + C + I.
 // And the load factor.
 // Returns a vector with the above values
-pub fn run_analysis(
-    tasks: &[Task],
-    approx: bool,
-) -> Result<ResponseTimes, String> {
+pub fn run_analysis(tasks: &[Task], approx: bool) -> Result<ResponseTimes, String> {
     let mut res = Vec::new();
     let (ip, tr) = pre_analysis(tasks);
 
@@ -194,7 +187,7 @@ mod tests {
 
         // builds a vector of tasks t1, t2, t3
         let tasks = vec![t1, t2, t3];
-        
+
         let rt1 = response_time(&tasks[0], &tasks, false).unwrap();
         let rt2 = response_time(&tasks[1], &tasks, false).unwrap();
         let rt3 = response_time(&tasks[2], &tasks, false).unwrap();

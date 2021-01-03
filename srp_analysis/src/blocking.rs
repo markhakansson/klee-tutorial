@@ -1,6 +1,6 @@
 use crate::common::*;
-use std::collections::HashSet;
 use crate::types::*;
+use std::collections::HashSet;
 
 /* 2. Blocking */
 // Blocking function. Calculates the largest amount of time a task (T1) may be blocked by

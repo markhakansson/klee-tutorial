@@ -6,4 +6,3 @@ pub type C = u32;
 pub type L = f32;
 pub type LTot = f32;
 pub type ResponseTimes = Vec<(String, R, C, B, I, L)>;
-

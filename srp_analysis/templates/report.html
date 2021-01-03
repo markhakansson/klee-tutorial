@@ -1,0 +1,29 @@
+<style>
+    td, th {
+        padding: 8px;
+    }
+    th {
+        text-align: left;
+    }
+</style>
+
+<table style="width:100%">
+    <tr>
+        <th>Task</th>
+        <th>Response time</th>
+        <th>WCET</th>
+        <th>Blocking time</th>
+        <th>Preemption time</th>
+        <th>Load factor</th>
+    </tr>
+{% for time in data%}
+    <tr>
+        <td>{{ time.name }}</td>
+        <td>{{ time.response }}</td>
+        <td>{{ time.wcet }}</td>
+        <td>{{ time.bt }}</td>
+        <td>{{ time.preemption }}</td>
+        <td>{{ time.load }}</td>
+    </tr>
+{% endfor %}
+</table>

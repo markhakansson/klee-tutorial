@@ -1,8 +1,8 @@
 mod analysis;
 mod blocking;
+mod cli;
 mod common;
 mod helpers;
-mod cli;
 mod templating;
 mod types;
 
@@ -12,25 +12,7 @@ use common::{Task, Trace};
 
 fn main() {
     let tasks = tasks_to_analyse();
-    cli::cli(&tasks);    
-
-    // println!("tasks {:#?}", &tasks);
-    // println!("total_load_factor: {}", total_load_factor(&tasks));
-
-    // let (ip, tr) = pre_analysis(&tasks);
-    // println!("ip: {:?}", ip);
-    // println!("tr: {:?}", tr);
-
-    // println!("(Task, R(t), C(t), B(t), I(t))");
-    // println!(
-    //     "response times (approx): {:#?}",
-    //     calc_response_times(&tasks, true).unwrap()
-    // );
-    // println!(
-    //     "response times: {:#?}",
-    //     calc_response_times(&tasks, false).unwrap()
-    // );
-
+    cli::cli(&tasks).unwrap();
 }
 
 fn tasks_to_analyse() -> Vec<Task> {
