@@ -6,9 +6,7 @@ mod helpers;
 mod templating;
 mod types;
 
-//use analysis::*;
 use common::{Task, Trace};
-//use helpers::*;
 
 fn main() {
     let tasks = tasks_to_analyse();
