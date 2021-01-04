@@ -1,4 +1,5 @@
 use structopt::StructOpt;
+use std::process::Command;
 
 use crate::analysis::*;
 use crate::common::Tasks;
@@ -7,11 +8,11 @@ use crate::templating::write_report_to_file;
 #[derive(StructOpt)]
 struct CliOpts {
     #[structopt(subcommand)]
-    cmd: Command,
+    cmd: CliCommand,
 }
 
 #[derive(StructOpt)]
-enum Command {
+enum CliCommand {
     /// Generate an analysis report
     Generate(Generate),
 }
@@ -33,16 +34,26 @@ pub fn cli(tasks: &Tasks) -> Result<(), String> {
     let args = CliOpts::from_args();
 
     match args.cmd {
-        Command::Generate(g) => generate(g, tasks),
+        CliCommand::Generate(g) => generate(g, tasks),
     }
 }
 
 fn generate(g: Generate, tasks: &Tasks) -> Result<(), String> {
     let res = run_analysis(tasks, g.approximation)?;
+    let filename = g.name + ".html";
 
     if g.verbose {
         println!("{:?}", res);
     }
 
-    write_report_to_file(&res, g.name)
+    write_report_to_file(&res, &filename)?;
+    open_report(&filename);
+    Ok(())
+}
+
+fn open_report(filename: &String) {
+    Command::new("firefox")
+        .arg(filename)
+        .spawn()
+        .expect("Could not open file or you don't have Firefox installed!");
 }

@@ -21,16 +21,18 @@ struct ReportTemplate<'a> {
 
 /// Writes the ResponseTimes of a set of tasks to an HTML file of the given
 /// filename.
-pub fn write_report_to_file(rt: &ResponseTimes, filename: String) -> Result<(), String> {
+pub fn write_report_to_file(rt: &ResponseTimes, filename: &String) -> Result<(), String> {
     let output = render_report(rt)?;
 
-    let file = File::create(filename + ".html");
+    let file = File::create(filename);
     match file {
-        Ok(mut f) => f.write_all(output.as_bytes()),
-        Err(e) => return Err(e.to_string()),
-    };
+        Ok(mut f) => {
+            f.write_all(output.as_bytes());
+            Ok(())
+        },
+        Err(e) => Err(e.to_string())
+    }
 
-    Ok(())
 }
 
 fn format_rt(rt: &ResponseTimes) -> Vec<TaskData> {
